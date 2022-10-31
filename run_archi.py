@@ -5,6 +5,8 @@ import argparse
 import random
 
 from deeplearning.architecture_complexity import * #--- to be changed to test other configurations
+# from deeplearning.architecture_rnn import * #--- to be changed to test other configurations
+# from deeplearning.architecture_depth import * #--- to be changed to test other configurations
 from outputfiles.save import *
 from outputfiles.evaluation import *
 from sits.readingsits import *
@@ -18,7 +20,7 @@ def main(sits_path, res_path, feature, noarchi, norun):
 		os.makedirs(res_path)
 	
 	#---- Parameters to set
-	n_channels = 3 #-- NIR, R, G
+	n_channels = 16 #-- NIR, R, G
 	val_rate = 0.05
 	
 	#---- Evaluated metrics
@@ -79,8 +81,6 @@ def main(sits_path, res_path, feature, noarchi, norun):
 		#--- Computing the one-hot encoding (recomputing it for train)
 		y_train_one_hot = to_categorical(y_train, n_classes)
 		y_val_one_hot = to_categorical(y_val, n_classes)
-	
-	
 	
 	if not os.path.isfile(res_file):
 		if val_rate==0:
