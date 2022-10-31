@@ -11,6 +11,7 @@ import pandas as pd
 import math
 import random
 import itertools
+from sklearn.utils import shuffle
 
 import csv
 
@@ -199,6 +200,55 @@ def extractValSet(X_train, polygon_ids_train, y_train, val_rate=0.1):
 	new_y_val = y_train[final_ind[final_train:]]
 	
 	return new_X_train, new_y_train, new_X_val, new_y_val
+
+def get_unique_ids_by_class(lut):
+	labels = lut[:, 1]
+	unique_labels = np.unique(labels)
+	ids_by_class = {}
+	for label in unique_labels:
+		idx = np.where(labels == label)
+		lut_subset = lut[idx]
+		ids_by_class[label] = np.unique(lut_subset[:, 0])
+	return ids_by_class
+
+def get_idx_of_object_ids(ids, lut):
+    lut_ids = lut[:, 0]
+    tot_idx = []
+    for i in ids:
+        tot_idx.append(np.where(lut_ids == i)[0])
+    tot_idx = np.concatenate(tot_idx, axis=0)
+    return tot_idx
+
+def get_split_idx(lut, train_perc=.6, val_perc=.2, seed=23):
+    train_idx, valid_idx, test_idx = [], [], []
+    unique_ids_by_class = get_unique_ids_by_class(lut)
+
+    for label in unique_ids_by_class:
+        ids = unique_ids_by_class[label]
+        ids = shuffle(ids, random_state=seed)
+        
+        limit_train = int(len(ids)* train_perc )
+        limit_val = limit_train + int(len(ids)* val_perc)
+        
+        
+        train_idx.extend(get_idx_of_object_ids(ids[0:limit_train], lut))
+        valid_idx.extend(get_idx_of_object_ids(ids[limit_train:limit_val], lut))
+        test_idx.extend(get_idx_of_object_ids(ids[limit_val:], lut))
+
+    return (train_idx,), (valid_idx,), (test_idx,)
+
+def load_train_val_test(seed):
+	data = np.load('SITS-Missing-Data/D1_balaruc_samples.npy')
+	lut = np.load('SITS-Missing-Data/D3_balaruc_lut.npy')
+
+	train_idx, val_idx, test_idx = get_split_idx(lut)
+	labels = lut[:,1]
+
+	n, b, c = data.shape
+	data = data.reshape((n, b*c))
+
+	return data[train_idx], data[val_idx], data[test_idx], labels[train_idx], labels[val_idx], labels[test_idx],
+
 	
 
 #EOF

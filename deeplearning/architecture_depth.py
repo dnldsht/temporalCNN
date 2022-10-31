@@ -272,6 +272,7 @@ def runArchi(noarchi, *args):
 	}
 	func = switcher.get(noarchi, lambda: 0)
 	model = func(args[0], args[1].shape[1])
+	model.summary()
 	
 	if len(args)==5:
 		return trainTestModel_EarlyAbandon(model, *args, n_epochs=n_epochs, batch_size=batch_size)
