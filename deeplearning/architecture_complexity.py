@@ -29,6 +29,7 @@ def Archi_3CONV16_1FC256(X, nbclasses):
 	l2_rate = 1.e-6
 	dropout_rate = 0.5
 	nb_conv = 3
+	#nb_conv = 2
 	nb_fc= 1
 	nbunits_conv = 16 #-- will be double
 	nbunits_fc = 256 #-- will be double
@@ -63,6 +64,7 @@ def Archi_3CONV32_1FC256(X, nbclasses):
 	l2_rate = 1.e-6
 	dropout_rate = 0.5
 	nb_conv = 3
+	#nb_conv = 2
 	nb_fc= 1
 	nbunits_conv = 32 #-- will be double
 	nbunits_fc = 256 #-- will be double
@@ -97,6 +99,7 @@ def Archi_3CONV64_1FC256(X, nbclasses):
 	l2_rate = 1.e-6
 	dropout_rate = 0.5
 	nb_conv = 3
+	#nb_conv = 2
 	nb_fc= 1
 	nbunits_conv = 64 #-- will be double
 	nbunits_fc = 256 #-- will be double
@@ -131,6 +134,7 @@ def Archi_3CONV128_1FC256(X, nbclasses):
 	l2_rate = 1.e-6
 	dropout_rate = 0.5
 	nb_conv = 3
+	#nb_conv = 2
 	nb_fc= 1
 	nbunits_conv = 128 #-- will be double
 	nbunits_fc = 256 #-- will be double
@@ -156,7 +160,6 @@ def Archi_3CONV128_1FC256(X, nbclasses):
 
 #-----------------------------------------------------------------------		
 def Archi_3CONV256_1FC256(X, nbclasses):
-	
 	#-- get the input sizes
 	m, L, depth = X.shape
 	input_shape = (L,depth)
@@ -165,6 +168,7 @@ def Archi_3CONV256_1FC256(X, nbclasses):
 	l2_rate = 1.e-6
 	dropout_rate = 0.5
 	nb_conv = 3
+	#nb_conv = 2
 	nb_fc= 1
 	nbunits_conv = 256 #-- will be double
 	nbunits_fc = 256 #-- will be double
@@ -199,6 +203,7 @@ def Archi_3CONV512_1FC256(X, nbclasses):
 	l2_rate = 1.e-6
 	dropout_rate = 0.5
 	nb_conv = 3
+	#nb_conv = 2
 	nb_fc= 1
 	nbunits_conv = 512 #-- will be double
 	nbunits_fc = 256 #-- will be double
@@ -233,6 +238,7 @@ def Archi_3CONV1024_1FC256(X, nbclasses):
 	l2_rate = 1.e-6
 	dropout_rate = 0.5
 	nb_conv = 3
+	#nb_conv = 2
 	nb_fc= 1
 	nbunits_conv = 1024 #-- will be double
 	nbunits_fc = 256 #-- will be double
@@ -266,7 +272,7 @@ def runArchi(noarchi, *args):
 		0: Archi_3CONV16_1FC256,
 		1: Archi_3CONV32_1FC256,
 		2: Archi_3CONV64_1FC256,
-		3: Archi_3CONV128_1FC256,
+		6: Archi_3CONV128_1FC256,
 		3: Archi_3CONV256_1FC256,
 		4: Archi_3CONV512_1FC256,
 		5: Archi_3CONV1024_1FC256,

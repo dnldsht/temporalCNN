@@ -237,11 +237,14 @@ def get_split_idx(lut, train_perc=.6, val_perc=.2, seed=23):
 
     return (train_idx,), (valid_idx,), (test_idx,)
 
-def load_train_val_test(seed):
+def load_train_val_test(seed, zeros=False):
 	data = np.load('SITS-Missing-Data/D1_balaruc_samples.npy')
 	lut = np.load('SITS-Missing-Data/D3_balaruc_lut.npy')
+	if zeros:
+		masks = np.load('SITS-Missing-Data/D2_balaruc_masks.npy')
+		data[np.where(masks == 1)] = 0
 
-	train_idx, val_idx, test_idx = get_split_idx(lut)
+	train_idx, val_idx, test_idx = get_split_idx(lut, seed=seed)
 	labels = lut[:,1]
 
 	n, b, c = data.shape

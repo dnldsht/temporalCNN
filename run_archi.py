@@ -4,9 +4,11 @@ import os, sys
 import argparse
 import random
 
-# from deeplearning.architecture_complexity import * #--- to be changed to test other configurations
+#from deeplearning.architecture_complexity import * #--- to be changed to test other configurations
 # from deeplearning.architecture_rnn import * #--- to be changed to test other configurations
-from deeplearning.architecture_depth import * #--- to be changed to test other configurations
+#from deeplearning.architecture_depth import * #--- to be changed to test other configurations
+#from deeplearning.architecture_batchsize import * #--- to be changed to test other configurations
+from deeplearning.architecture_pooling import * #--- to be changed to test other configurations
 from outputfiles.save import *
 from outputfiles.evaluation import *
 from sits.readingsits import *
@@ -82,7 +84,7 @@ def main(sits_path, res_path, feature, noarchi, norun, seed):
 	# 	y_train_one_hot = to_categorical(y_train, n_classes)
 	# 	y_val_one_hot = to_categorical(y_val, n_classes)
 
-	X_train, X_val, X_test, y_train, y_val, y_test = load_train_val_test(seed)
+	X_train, X_val, X_test, y_train, y_val, y_test = load_train_val_test(seed, False)
 	n_classes = len(np.unique(y_test))
 
 	y_train_one_hot = to_categorical(y_train, n_classes)
