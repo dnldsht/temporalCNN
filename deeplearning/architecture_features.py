@@ -272,8 +272,8 @@ def trainValTestModel_EarlyAbandon(model, X_train, Y_train_onehot, X_val, Y_val_
 	
 	#---- monitoring the minimum validation loss
 	checkpoint = ModelCheckpoint(out_model_file, monitor='val_loss',
-			verbose=0, save_best_only=True, mode='min')
-	early_stop = EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto')
+			verbose=1, save_best_only=True, mode='min')
+	early_stop = EarlyStopping(monitor='val_loss', min_delta=0, patience=2, verbose=1, mode='min')
 	callback_list = [checkpoint, early_stop]
 		
 	start_train_time = time.time()
